@@ -1,0 +1,3 @@
+This project is my experimentations with Helidon (https://helidon.io) using the Explorer Model.
+
+* to be completed...
