@@ -1,0 +1,4 @@
+# curl -X GET http://localhost:8080/rest/explorer/5ef13630-4818-4199-9f56-32e1c93edc3b
+GET http://localhost:8080/rest/explorer/5ef13630-4818-4199-9f56-32e1c93edc3b
+
+###

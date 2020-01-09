@@ -30,6 +30,7 @@
     <groupId>nino.explorers</groupId>
     <artifactId>explorers-helidon</artifactId>
     <name>${project.artifactId}</name>
+    <version>0.1-SNAPSHOT</version>
 
     <properties>
         <mainClass>nino.explorers.Main</mainClass>
@@ -38,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>io.helidon.microprofile.bundles</groupId>
-            <artifactId>helidon-microprofile</artifactId>
+            <artifactId>helidon-microprofile-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
@@ -59,6 +60,11 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>nino.explorers</groupId>
+            <artifactId>explorers-model</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -81,6 +87,14 @@
                         <id>make-index</id>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
