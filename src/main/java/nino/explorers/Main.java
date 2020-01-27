@@ -16,11 +16,19 @@
 
 package nino.explorers;
 
+import dao.ExplorerDao;
+import dao.impl.MapExpeditionDao;
+import dao.impl.MapShipDao;
+import io.helidon.microprofile.server.Server;
+import nino.explorers.dao.InjectableExplorerDao;
+import utils.SampleDataGenerator;
+
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
-
-import io.helidon.microprofile.server.Server;
 
 /**
  * The application main class.
@@ -55,7 +63,21 @@ public final class Main {
         // Server will automatically pick up configuration from
         // microprofile-config.properties
         // and Application classes annotated as @ApplicationScoped
-        return Server.create().start();
+
+        Server server = Server.create();
+        server.start();
+
+        // init the server with some data
+        // todo beautify ?
+        BeanManager beanManager = server.cdiContainer().getBeanManager();
+        Bean<InjectableExplorerDao> bean = (Bean<InjectableExplorerDao>) beanManager.getBeans(InjectableExplorerDao.class).iterator().next();
+        CreationalContext<InjectableExplorerDao> context = beanManager.createCreationalContext(bean);
+        InjectableExplorerDao explorerDao = (InjectableExplorerDao) beanManager.getReference(bean, ExplorerDao.class, context);
+
+        // todo fix other daos
+        SampleDataGenerator.INSTANCE.generateData(new MapShipDao(), explorerDao, new MapExpeditionDao());
+
+        return server;
     }
 
     /**

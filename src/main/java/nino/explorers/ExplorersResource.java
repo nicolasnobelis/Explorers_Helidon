@@ -2,6 +2,10 @@ package nino.explorers;
 
 import model.Explorer;
 import nino.explorers.dao.InjectableExplorerDao;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jetbrains.annotations.NotNull;
 import rest.ExplorerService;
 
@@ -30,6 +34,10 @@ public class ExplorersResource implements ExplorerService {
     }
 
     @Override
+    @Operation(summary = "Get an explorer")
+    @APIResponse(description = "JSON containing the explorer",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Explorer.class)))
     public Explorer getExplorer(@NotNull UUID uuid) {
         return explorerDao.getExplorer(uuid);
     }
@@ -37,6 +45,6 @@ public class ExplorersResource implements ExplorerService {
     @NotNull
     @Override
     public List<Explorer> listExplorers() {
-        return List.of(); // TODO
+        return explorerDao.listExplorers();
     }
 }

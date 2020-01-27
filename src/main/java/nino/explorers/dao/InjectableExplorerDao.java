@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
-public class InjectableExplorerDao {
+public class InjectableExplorerDao implements ExplorerDao {
     private ExplorerDao dao = new MapExplorerDao();
 
     @NotNull
