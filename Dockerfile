@@ -21,7 +21,7 @@ RUN echo "done!"
 
 
 ## 2nd stage, build the runtime image
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre-slim AS runtime-image
 WORKDIR /app
 #
 ## Copy the binary built in the 1st stage
@@ -29,6 +29,13 @@ COPY --from=explorersBuilt /helidon/target/explorers-helidon.jar ./
 COPY --from=explorersBuilt /helidon/target/libs ./libs
 #
 CMD ["java", "-jar", "explorers-helidon.jar"]
+
+# if you don't want a distroless-based image, you can comment these steps out
+FROM gcr.io/distroless/java:11 AS distroless-image
+COPY --from=runtime-image /app /app
+WORKDIR /app
+CMD ["explorers-helidon.jar"]
+
 #
 EXPOSE 8080
 

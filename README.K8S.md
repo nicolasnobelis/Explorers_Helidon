@@ -1,14 +1,5 @@
 ###### Installation for Kubernetes
 
-Build the docker image for **explorers-helidon**
-`docker build -t nino/explorers-helidon .`
-
-The image can be tested
-
-`docker run -ti -p8080:8080 nino/explorers-helidon`
-
-`curl -X GET http://localhost:8080/rest/explorer/list`
-
 Make Minikube docker the default one for the shell
 
 `eval $(minikube -p minikube docker-env)`
@@ -19,15 +10,24 @@ restarted on reboot)
 
 `docker-compose -f docker_registry.yml up -d`
 
+Build the docker image for **explorers-helidon**
+`docker build -t nino/distroless-explorers-helidon:0.1 .`
+
+The image can be tested
+
+`docker run -ti -p8080:8080 nino/distroless-explorers-helidon:0.1`
+
+`curl -X GET http://$(minikube ip):8080/rest/explorer/list`
+
 Push the built image to the private registry
 
-`docker tag <source image id> localhost:5000/nino/explorers-helidon:v1`
+`docker tag <source image id> localhost:5000/nino/distroless-explorers-helidon:0.1`
 
-`docker push localhost:5000/nino/explorers-helidon:v1`
+`docker push localhost:5000/nino/distroless-explorers-helidon:0.1`
 
 Test the private registry has the image
 
-`curl http://localhost:5000/v2/_catalog`
+`curl http://$(minikube ip):5000/v2/_catalog`
 
 Deploy the service in K8S
 
