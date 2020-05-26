@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: explorers-helidon
-          image: localhost:5000/nino/distroless-explorers-helidon:0.1
+          image: localhost:5000/nino/distroless-explorers-helidon:0.2
           imagePullPolicy: Never # needed for local images
           ports:
             - containerPort: 8080

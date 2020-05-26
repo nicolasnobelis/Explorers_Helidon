@@ -30,7 +30,7 @@
     <groupId>nino.explorers</groupId>
     <artifactId>explorers-helidon</artifactId>
     <name>${project.artifactId}</name>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 
     <properties>
         <mainClass>nino.explorers.Main</mainClass>
